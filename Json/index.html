@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Our superheroes</title>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Faster+One"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header></header>
+
+    <section></section>
+
+    <script>
+      function populateHeader(element) {
+        let parentElem = document.querySelector("header");
+        let childElemCreateH1 = document.createElement("h1");
+        childElemCreateH1.innerHTML = element.squadName;
+        parentElem.append(childElemCreateH1);
+        let childElemCreateP = document.createElement("p");
+        let keyHome = Object.keys(element)[1].toLowerCase();
+        let keyHomeElem = keyHome.charAt(0).toUpperCase() + keyHome.slice(1,keyHome.length);
+        let keyFormed = Object.keys(element)[2].toLowerCase();
+        let keyFormedElem = keyFormed.charAt(0).toUpperCase() + keyFormed.slice(1,keyFormed.length);
+        childElemCreateP.innerHTML = `${keyHomeElem}: ${element.homeTown} // ${keyFormedElem}: ${element.formed}`;
+        parentElem.append(childElemCreateP);
+        // git push 
+      }
+//       function populateHeroes(obj) {
+//   const section = document.querySelector('section');
+//   const heroes = obj.members;
+
+//   for (const hero of heroes) {
+//     const myArticle = document.createElement('article');
+//     const myH2 = document.createElement('h2');
+//     const myPara1 = document.createElement('p');
+//     const myPara2 = document.createElement('p');
+//     const myPara3 = document.createElement('p');
+//     const myList = document.createElement('ul');
+//     console.log(myList)
+
+//     myH2.textContent = hero.name;
+//     myPara1.textContent = `Secret identity: ${hero.secretIdentity}`;
+//     myPara2.textContent = `Age: ${hero.age}`;
+//     myPara3.textContent = 'Superpowers:';
+
+//     const superPowers = hero.powers;
+//     for (const power of superPowers) {
+//       const listItem = document.createElement('li');
+//       listItem.textContent = power;
+//       myList.appendChild(listItem);
+//     }
+
+//     myArticle.appendChild(myH2);
+//     myArticle.appendChild(myPara1);
+//     myArticle.appendChild(myPara2);
+//     myArticle.appendChild(myPara3);
+//     myArticle.appendChild(myList);
+
+//     section.appendChild(myArticle);
+//   }
+// }
+      function populateHeroes(element) {
+        
+        let parentElem = document.querySelector("section");
+        let childElemCreateH3 = document.createElement("h2");
+        childElemCreateH3.innerHTML = element.members[0].name;
+        parentElem.append(childElemCreateH3);
+        
+        let childElemCreateP = document.createElement("p");
+        childElemCreateP.innerHTML = `Secret identity: ${element.members[0].secretIdentity}`;
+        parentElem.append(childElemCreateP);
+        
+        let childElemCreatePP = document.createElement("p");
+        childElemCreatePP.innerHTML = `Age: ${element.members[0].age}`;
+        parentElem.append(childElemCreatePP);
+
+        let childElemCreatePPP = document.createElement("p");
+        childElemCreatePPP.innerHTML = `Superpowers:`;
+        parentElem.append(childElemCreatePPP);
+        
+        let childElemCreateUl = document.createElement("ul");
+        parentElem.append(childElemCreateUl);
+        for(let i = 0; i< element.members[0].powers.length; i++){
+          let childElemToCreateLi = document.createElement("li")
+          console.log(childElemToCreateLi)
+          childElemToCreateLi.innerText = element.members[0].powers[i];
+          childElemCreateUl.append(childElemToCreateLi);
+        }
+
+
+      }
+        
+
+
+
+        // let childElemCreateH3 = document.createElement("h2");
+        // childElemCreateH3.innerHTML = element.members[0].name;
+        // parentElem.append(childElemCreateH3);
+
+
+        
+    
+
+      // }
+
+      async function getData() {
+        let data = await (
+          await fetch(
+            "https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json"
+          )
+        ).json();
+        // console.log(data.squadName);
+        populateHeader(data);
+        populateHeroes(data);
+      }
+      getData();
+    </script>
+  </body>
+</html>
